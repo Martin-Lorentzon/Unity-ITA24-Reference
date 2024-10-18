@@ -2,9 +2,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
-public class FirstPersonMove : MonoBehaviour
+public class ThirdPersonMove : MonoBehaviour
 {
     Rigidbody rb;
+
+    public new Transform camera;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -27,13 +29,13 @@ public class FirstPersonMove : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         float vInput = Input.GetAxisRaw("Vertical");
 
-        Vector3 moveVector = (transform.forward * vInput) + (transform.right * hInput);
+        Vector3 forwardVector = new Vector3(camera.forward.x, 0f, camera.forward.z).normalized;
+        Vector3 rightVector = new Vector3(camera.right.x, 0f, camera.right.z).normalized;
+        
+        Vector3 moveVector = (forwardVector * vInput) + (rightVector * hInput);
 
-        // Normalize to a length of '1' to avoid speedy diagonals
         if (moveVector.magnitude > 1f)
             moveVector = moveVector.normalized;
-
-        moveVector *= moveSpeed;
 
         // Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
