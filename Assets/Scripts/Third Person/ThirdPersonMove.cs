@@ -10,6 +10,7 @@ public class ThirdPersonMove : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 5f;
+    public float rotationSpeed = 600f;
 
     [Header("Ground Check")]
     public float playerHeight = 2f;
@@ -37,13 +38,22 @@ public class ThirdPersonMove : MonoBehaviour
         if (moveVector.magnitude > 1f)
             moveVector = moveVector.normalized;
 
-        // Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        moveVector *= moveSpeed;
+
+        // Ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, (playerHeight * 0.5f) + 0.2f, whatIsGround);
 
         float verticalSpeed = rb.linearVelocity.y;
 
-        if (grounded)
-            // Player is able to walk
+        if (grounded)  // Player is able to walk
+        {
             rb.linearVelocity = new Vector3(moveVector.x, verticalSpeed, moveVector.z);
+
+            if (moveVector.magnitude > 0.2f)  // Smoothly rotate towards the target rotation
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveVector);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 600f * Time.deltaTime);
+            }
+        }
     }
 }

@@ -36,12 +36,11 @@ public class FirstPersonMove : MonoBehaviour
         moveVector *= moveSpeed;
 
         // Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, (playerHeight * 0.5f) + 0.2f, whatIsGround);
 
         float verticalSpeed = rb.linearVelocity.y;
 
-        if (grounded)
-            // Player is able to walk
+        if (grounded)  // Player is able to walk
             rb.linearVelocity = new Vector3(moveVector.x, verticalSpeed, moveVector.z);
     }
 }
