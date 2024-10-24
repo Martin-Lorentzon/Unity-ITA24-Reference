@@ -24,7 +24,6 @@ public class PivotLook : MonoBehaviour
         yTarget = yCurrent;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
