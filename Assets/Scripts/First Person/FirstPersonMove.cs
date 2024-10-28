@@ -11,7 +11,7 @@ public class FirstPersonMove : MonoBehaviour
 
     [Header("Ground Check")]
     public float playerHeight = 2f;
-    public LayerMask whatIsGround;  // Det layer som innehåller våra "mark-objekt"
+    public LayerMask whatIsGround;  // The layer containing our ground objects
 
     bool grounded;
 
