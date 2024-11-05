@@ -13,11 +13,11 @@ public class MaterialSwapper : MonoBehaviour
         oldMaterial = GetComponent<MeshRenderer>().material;
     }
 
-    public void SwapMaterials()
+    public void SwapMaterial()
     {
-        isNewMaterialActive = !isNewMaterialActive;
-
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+
+        isNewMaterialActive = !isNewMaterialActive;
 
         if (isNewMaterialActive)
             meshRenderer.material = newMaterial;
