@@ -1,0 +1,41 @@
+#### Rendera objekt ovanpå allt annat ####
+
+Inuti scenträdet:
+* Skapa en ny kamera och döp den till "Top Camera"
+* Gör Top Camera till child av Main Camera (återställ dess position/rotation)
+
+Inuti Top Camera:
+* Sätt Render Type till "Overlay"
+* Stäng av Post Processing
+* Sätt Culling Mask till "Nothing" (Top Camera renderar då inga objekt)
+* Ta bort Audio Listener
+
+Inuti de objekt som ska renderas ovanpå allt annat:
+* Skapa en ny layer och sätt objektens layer till "RenderOnTop"
+
+Inuti Top Camera:
+* I dess Culling Mask inkludera RenderOnTop (exkludera alla andra layers)
+
+Inuti Main Camera:
+* I dess Culling Mask exkludera RenderOnTop
+* Lägg istället till Top Camera i dess Camera Stack
+
+Ser det märkligt ut?
+* Projection-inställningarna måste vara identiska mellan de två (duplicera Main Camera)
+* Stäng av Render Shadows (för Top Camera)
+
+
+#### Använda Render Texture ####
+
+Inuti Assets-mappen:
+* Skapa en ny Render Texture (Create > Rendering > Render Texture)
+
+Inuti Render Texturens Inspector:
+* Välj Size (högre för fler detaljer)
+* Justera resterande inställningarna efter behov
+
+Inuti scenträdet:
+* Skapa en ny kamera och döp den till "Render Texture Camera" (eller något lämpligt som "TV Texture Camera", "Mirror Texture Camera")
+
+Inuti Render Texture Camera:
+* Sätt Output Texture till den nyskapade Render-Texturen
